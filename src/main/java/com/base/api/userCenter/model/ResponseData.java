@@ -1,8 +1,13 @@
 package com.base.api.userCenter.model;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by menzhongxin on 2017/6/15.
  */
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public final class ResponseData {
     private String code;
     private String businessCode;
@@ -39,5 +44,17 @@ public final class ResponseData {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void success(Object data){
+        this.code = "0";
+        this.businessCode = "0000";
+        this.data = data;
+    }
+
+    public void error(String businessCode, String msg){
+        this.code ="-1";
+        this.businessCode = businessCode;
+        this.message = msg;
     }
 }

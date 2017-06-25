@@ -1,12 +1,17 @@
 package com.base.api.userCenter.model;
 
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
 /**
  * Created by menzhongxin on 2017/6/12.
  */
 
+@Component
+@Scope(scopeName = "request")
 public class Captcha implements Serializable {
     private static final long serialVersionUID = 1L;
 
