@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/captcha/{scene}")
-public class CaptchaController{
+public class CaptchaController extends BaseController{
 
     @Autowired
     private CaptchaService captchaService;
@@ -18,7 +18,6 @@ public class CaptchaController{
 
     @GetMapping("/msg/{phone}")
     Captcha msgCaptcha(@PathVariable String phone, @PathVariable String scene) {
-//        throw new RuntimeException("test");
         return captchaService.generateMsgCaptcha(phone, scene);
     }
 

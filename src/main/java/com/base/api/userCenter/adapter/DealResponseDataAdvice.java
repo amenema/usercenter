@@ -1,5 +1,6 @@
 package com.base.api.userCenter.adapter;
 
+import com.base.api.userCenter.model.Base;
 import com.base.api.userCenter.model.ResponseData;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -8,6 +9,8 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by menzhongxin on 2017/6/17.
@@ -24,8 +27,12 @@ public class DealResponseDataAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof ResponseData)
             return body;
+
         ResponseData data = new ResponseData();
-        data.success(body);
+        if(body instanceof Base){
+            data.success(body);
+        }
         return data;
+
     }
 }

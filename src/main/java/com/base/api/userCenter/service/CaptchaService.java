@@ -4,7 +4,6 @@ import com.base.api.userCenter.component.captcha.CaptchaComponent;
 import com.base.api.userCenter.model.Captcha;
 import com.base.api.userCenter.model.CaptchaSceneEnum;
 import com.base.api.userCenter.model.CaptchaTypeEnum;
-import com.base.api.userCenter.model.manager.CaptchaManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,13 +29,17 @@ public class CaptchaService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private Captcha captcha;
+
     public Captcha generateCaptcha(String uuid, String type, String scene) {
-        Captcha captcha = captchaManager();
+//        Captcha captcha = captchaManager();
         captcha.setScene(CaptchaSceneEnum.valueOf(scene.toUpperCase()));
         captcha.setType(CaptchaTypeEnum.valueOf(type.toUpperCase()));
         captcha.setCode(captchaComponent.getImgCaptchaText());
         captcha.setUuid(uuid);
         redisTemplate.opsForValue().set(captcha.getCacheKey(), captcha, 120, TimeUnit.SECONDS);
+        captcha.setImg(captchaComponent.getImgCaptcha(captcha.getCode()));
         return captcha;
     }
 
@@ -53,8 +56,8 @@ public class CaptchaService {
         return (realCaptcha != null) && (captcha.getCode().equals(realCaptcha.getCode()));
     }
 
-    @Lookup
-    public Captcha captchaManager(){
-        return null;
-    }
+//    @Lookup
+//    public Captcha captchaManager(){
+//        return null;
+//    }
 }

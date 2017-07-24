@@ -1,8 +1,11 @@
 package com.base.api.userCenter.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.Serializable;
 
@@ -11,8 +14,8 @@ import java.io.Serializable;
  */
 
 @Component
-@Scope(scopeName = "request")
-public class Captcha implements Serializable {
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class Captcha extends Base implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String code;
@@ -74,6 +77,7 @@ public class Captcha implements Serializable {
     public void setScene(String scene) {
         this.setScene(CaptchaSceneEnum.valueOf(scene.toUpperCase()));
     }
+
 
     /**
      * @param uuid

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * Created by menzhongxin on 2017/6/25.
  */
 
-@Component
 public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
